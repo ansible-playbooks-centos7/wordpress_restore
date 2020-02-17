@@ -1,0 +1,19 @@
+- name: Delete wp-content directory
+  file:
+    path: "{{ wp_installed_path }}/wp-content"
+    state: absent
+
+- name: Create wp-content directory
+  file:
+    path: "{{ wp_installed_path }}/wp-content"
+    state: directory
+    mode: '0755'
+
+- name: Update wp-content directory
+  copy:
+    src: "{{ restore_work_dir }}/wp-content/"
+    dest: "{{ wp_installed_path }}/wp-content/"
+    owner: apache
+    group: apache
+    mode: '0755'
+    remote_src: yes
